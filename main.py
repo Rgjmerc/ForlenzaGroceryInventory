@@ -8,8 +8,23 @@ def add_item(inventory, name, price, quantity):
     price (str): The price of the item
     quantity (str): The quantity of the item
     """
-    inventory[name] = {"price": price, "quantity": quantity}
-    print(f"{name} added to the inventory.")
+    if inventory[name] not in inventory:
+        inventory[name] = {"price": price, "quantity": quantity}
+        print(f"{name} added to the inventory.")
+    else:
+        #confirms if the data from a previous item is to be overwritten or not
+        print("This item is already in the inventory. Are you sure you want to override this?")
+        response = input("yes or no: ")
+        if response == "yes" or response == "Yes":
+            inventory[name] = {"price": price, "quantity": quantity}
+            print(f"{name} overwritten in the inventory.")
+            #prints inventory after every task
+            print("Current Inventory:")
+            for name in inventory:
+                item = inventory[name]
+                print(f"{name}: Price: ${item['price']:.2f}, Quantity: {item['quantity']}")
+        else:
+            print ("Cancelling...")
 
 def remove_item(inventory, item_name):
     """
@@ -19,8 +34,17 @@ def remove_item(inventory, item_name):
     inventory (dict): The current inventory
     item_name (str): The name of the item to remove
     """
-    del inventory[item_name]
-    print(f"{item_name} removed from the inventory.")
+    try:
+        del inventory[item_name]
+        print(f"{item_name} removed from the inventory.")
+        #prints inventory after every task
+        print("Current Inventory:")
+        for name in inventory:
+            item = inventory[name]
+            print(f"{name}: Price: ${item['price']:.2f}, Quantity: {item['quantity']}")
+    except:
+        #adds an additional layer of crash protection for user error
+        print("That item isn't in the inventory. Check capitilization or spelling and try again.")
 
 def update_quantity(inventory, item_name, new_quantity):
     """
@@ -31,8 +55,18 @@ def update_quantity(inventory, item_name, new_quantity):
     item_name (str): The name of the item to update
     new_quantity (str): The new quantity of the item
     """
-    inventory[item_name]["quantity"] == new_quantity
-    print(f"{item_name} quantity updated to {new_quantity}.")
+    try:
+        #quantity updates properly now
+        inventory[item_name]["quantity"] = new_quantity
+        print(f"{item_name} quantity updated to {new_quantity}.")
+        #prints inventory after every task
+        print("Current Inventory:")
+        for name in inventory:
+            item = inventory[name]
+            print(f"{name}: Price: ${item['price']:.2f}, Quantity: {item['quantity']}")
+    except:
+        #adds an additional layer of crash protection for user error
+        print("That item isn't in the inventory. Check capitilization or spelling and try again.")
 
 def display_inventory(inventory):
     """

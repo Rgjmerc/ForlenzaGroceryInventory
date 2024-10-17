@@ -14,4 +14,10 @@
   - View the current inventory.
   - Search for items by name.
 
-
+## Version 1.2
+- 2024-10-17
+- Added more user friendly responses
+- Stopped unnessary crashes from happening
+- Features:
+  - Ability to confirm possible overwrites
+  - Current inventory displayed after every action
