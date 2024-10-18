@@ -19,10 +19,6 @@ def add_item(inventory, name, price, quantity):
             inventory[name] = {"price": price, "quantity": quantity}
             print(f"{name} overwritten in the inventory.")
             #prints inventory after every task
-            print("Current Inventory:")
-            for name in inventory:
-                item = inventory[name]
-                print(f"{name}: Price: ${item['price']:.2f}, Quantity: {item['quantity']}")
         else:
             print ("Cancelling...")
 
@@ -38,10 +34,6 @@ def remove_item(inventory, item_name):
         del inventory[item_name]
         print(f"{item_name} removed from the inventory.")
         #prints inventory after every task
-        print("Current Inventory:")
-        for name in inventory:
-            item = inventory[name]
-            print(f"{name}: Price: ${item['price']:.2f}, Quantity: {item['quantity']}")
     except:
         #adds an additional layer of crash protection for user error
         print("That item isn't in the inventory. Check capitilization or spelling and try again.")
@@ -60,10 +52,6 @@ def update_quantity(inventory, item_name, new_quantity):
         inventory[item_name]["quantity"] = new_quantity
         print(f"{item_name} quantity updated to {new_quantity}.")
         #prints inventory after every task
-        print("Current Inventory:")
-        for name in inventory:
-            item = inventory[name]
-            print(f"{name}: Price: ${item['price']:.2f}, Quantity: {item['quantity']}")
     except:
         #adds an additional layer of crash protection for user error
         print("That item isn't in the inventory. Check capitilization or spelling and try again.")
@@ -85,7 +73,7 @@ def display_inventory(inventory):
 
 # Initialize inventory with two example items
 inventory = {
-    "apple": {"price": 0.50, "quantity": 100},
+    "apple": {"price": 0.50, "quantity": 100, },
     "banana": {"price": 0.75, "quantity": 150}
 }
 
@@ -98,13 +86,16 @@ while True:
         price = input("Enter item price: ")
         quantity = int(input("Enter item quantity: "))
         add_item(inventory, name, price, quantity)
+        display_inventory(inventory)
     elif choice == "2":
         name = input("Enter item name to remove: ")
         remove_item(inventory, name)
+        display_inventory(inventory)
     elif choice == "3":
         name = input("Enter item name to update: ")
         quantity = input("Enter new quantity: ")
         update_quantity(inventory, name, quantity)
+        display_inventory(inventory)
     elif choice == "4":
         display_inventory(inventory)
     elif choice == "5":
